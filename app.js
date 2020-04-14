@@ -24,7 +24,7 @@ app.use(
 
 app.use(bodyParser.json())
 const googleMapsClient = require('@google/maps').createClient({
-  key: 'AIzaSyCW4b9s7kSCjsGCwOcQ3pza0AvMXgsf-V0'
+  key: 'AIzaSyAG278EsruYQodQv6eKDp5KV-n0Eix9cIQ'
 });
 // const Client = require("@googlemaps/google-maps-services-js").Client;
 
@@ -100,7 +100,7 @@ app.post('/register', (req, res) => {
     console.log("getPlaceDetails");
     console.log(req.query.placeId);
     
-    let url=`https://maps.googleapis.com/maps/api/place/details/json?place_id=${req.query.placeId}&key=AIzaSyCW4b9s7kSCjsGCwOcQ3pza0AvMXgsf-V0`;
+    let url=`https://maps.googleapis.com/maps/api/place/details/json?place_id=${req.query.placeId}&key=AIzaSyAG278EsruYQodQv6eKDp5KV-n0Eix9cIQ`;
     // console.log("getphotoreference");
     
     function getPlaceDetails(){
@@ -150,7 +150,7 @@ app.post('/register', (req, res) => {
 app.get('/GetAutoComplete', (req, res) => {
 //  let apiKey="AIzaSyBcoXqhPVQPu-07dFLCxDYO-HKfjeqplJc"
 console.log(req.query.autoComplete);
- let url=`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${req.query.autoComplete}&key=AIzaSyCW4b9s7kSCjsGCwOcQ3pza0AvMXgsf-V0`;
+ let url=`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${req.query.autoComplete}&key=AIzaSyAG278EsruYQodQv6eKDp5KV-n0Eix9cIQ`;
  function parse(){
   return new Promise(function(resolve, reject){
       request(url, function (error, response, body) {
@@ -184,7 +184,7 @@ app.get('/GetNearbyPlacesDetails', (req, res) => {
   console.log(req.query.activities);
 
   // let url=`https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurants+in+tel-aviv&key=AIzaSyBcoXqhPVQPu-07dFLCxDYO-HKfjeqplJc`;
-  let url=`https://maps.googleapis.com/maps/api/place/textsearch/json?query=${req.query.activities}+in+${req.query.place}&key=AIzaSyCW4b9s7kSCjsGCwOcQ3pza0AvMXgsf-V0`;
+  let url=`https://maps.googleapis.com/maps/api/place/textsearch/json?query=${req.query.activities}+in+${req.query.place}&key=AIzaSyAG278EsruYQodQv6eKDp5KV-n0Eix9cIQ`;
   function parseNearbyPlacesDetails(){
    return new Promise(function(resolve, reject){
        request(url, function (error, response, body) {
