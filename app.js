@@ -10,7 +10,7 @@ const request = require('request');
 var Countries = schemas.Countries;
 var Users = schemas.User;
 var Place = schemas.Place;
-
+var RecommendedTrips=schemas.RecommendedTrip;
 app.use(cors())
 
 app.use(
@@ -70,26 +70,30 @@ app.post('/register', (req, res) => {
     // console.log(req.body.trip);
     console.log(req.body.tripName);
       var arr=[];
-      req.body.trip.forEach(element => {
-        // console.log(element.geometry.location.lat);
-        // "lat":element.geometry.location.lat,"lng":element.element.geometry.location.lng
-        // let x=element.geometry.location.lat;
-        // let y=
-        
-        
+      req.body.trip.forEach(element => {     
         var newPlace = new Place({ "place_id": element.place_id,"lat":element.geometry.location.lat,"lng":element.geometry.location.lng,"name": req.body.tripName});
         arr.push(newPlace);
       });
       // console.log(arr);
       // console.log(req.body.username);
-      var person=Users.updateOne({"UserName":req.body.username},{$push: {Places:arr}},function(err,raw){
+      var person=Users.updateOne({"UserName":req.body.username},{$push: {Places:{arr,name:arr[0].name}}},function(err,raw){
       // console.log(raw);
       res.send(true);
       });
     });
     
   
+app.post('/saveRecomendedTrip',(req,res)=>{
+  console.log(req.body.tripName);
+  console.log(req.body.trip);
+  var recommendedTrips = new RecommendedTrips({ "tripName": req.body.tripName, "trip": req.body.trip});
 
+  recommendedTrips.save(recommendedTrips,function(err,newTrip){
+    if (err) return handleError(err);
+    console.log("saverecommendedTrip");
+    res.sendStatus(200);
+  })
+})
 
 
 
@@ -126,7 +130,14 @@ app.post('/register', (req, res) => {
     });
     
     
-  
+    app.get('/recommendedTrip',(req,res)=>{
+
+        RecommendedTrips.find({},function(err,docs){
+          console.log(docs);
+          res.send(docs);
+          
+        })
+    })
 
 
     app.get('/getUserTrips', (req, res) => {

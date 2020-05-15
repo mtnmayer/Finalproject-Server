@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 //connect to mongo
-mongoose.connect('mongodb://localhost:27017/TravelMeDataBase', {useNewUrlParser: true});
+mongoose.connect('mongodb://localhost:27017/TravelMeDataBaseFinal', {useNewUrlParser: true});
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {console.log("connect to mongo")});
@@ -88,8 +88,14 @@ var CountriesSchema = new mongoose.Schema({
 });
 var Countries = mongoose.model('Countries', CountriesSchema);
 
+var RecommendedTripSchema = new mongoose.Schema({
+  tripName:String,
+  trip:[{}]
+});
+var RecommendedTrip = mongoose.model('RecommendedTrip', RecommendedTripSchema);
 
-var my_schemas = {'User' : User,'Countries':Countries,'Comment':Comment, 'Post': Post,'Place':Place};
+
+var my_schemas = {'User' : User,'Countries':Countries,'RecommendedTrip':RecommendedTrip,'Comment':Comment, 'Post': Post,'Place':Place};
 module.exports = my_schemas;
 
 
