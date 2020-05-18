@@ -188,7 +188,19 @@ parse().then(function(val) {
   // console.err(err);
 });
 });
+///////////////////////////////////////////////////////////////////////////
+app.get('/getTripByName', (req, res) => {
+  console.log(req.query.tripName);
+  console.log(req.query.userName);
 
+    Users.findOne({"UserName":req.query.userName},function(err,doc){
+        console.log(doc);
+        res.send(doc);
+
+      });
+
+});
+//////////////////////////////////////////////////////////////////////
 
 app.get('/GetNearbyPlacesDetails', (req, res) => {
   console.log(req.query.place);
